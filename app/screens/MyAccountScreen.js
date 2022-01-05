@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Platform, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, Platform, ScrollView, StyleSheet } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 
 //components
@@ -11,11 +11,11 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 
 function MyAccountScreen(props) {
     return (
-        <Screen style={{ flex: 1, justifyContent: 'flex-start', alignItems: "center", backgroundColor: Colors.white }}>
+        <Screen style={styles.screen}>
 
             {/* Nav */}
-            <View style={{ marginTop: RFPercentage(2), width: '90%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }} >
-                <TouchableOpacity activeOpacity={0.6} style={{ position: 'absolute', left: 0 }} >
+            <View style={styles.navContainer} >
+                <TouchableOpacity onPress={() => props.navigation.navigate("ApplyNowScreen")} activeOpacity={0.6} style={{ position: 'absolute', left: 0 }} >
                     <Ionicons name="chevron-back" style={{ fontSize: RFPercentage(3) }} color="black" />
                 </TouchableOpacity>
                 <Text style={{ color: Colors.black, fontSize: RFPercentage(2.5), fontWeight: '400' }} >
@@ -29,7 +29,7 @@ function MyAccountScreen(props) {
             </View>
 
             {/* My Account Text */}
-            <Text style={{ marginTop: RFPercentage(5.5), color: Colors.greyNew, fontSize: RFPercentage(3), fontWeight: Platform.OS == 'android' ? 'bold' : '500' }} >
+            <Text style={{ marginTop: RFPercentage(5.5), color: Colors.greyNew, fontSize: RFPercentage(3), fontWeight: '500' }} >
                 My Account
             </Text>
 
@@ -66,6 +66,23 @@ function MyAccountScreen(props) {
         </Screen>
     );
 }
+
+const styles = StyleSheet.create({
+    screen: {
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: "center",
+        backgroundColor: Colors.white
+    },
+    navContainer: {
+        marginTop: RFPercentage(2),
+        width: '90%',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center'
+    }
+})
 
 
 export default MyAccountScreen;

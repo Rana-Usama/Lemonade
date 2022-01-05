@@ -1,6 +1,7 @@
 export default {
     primary: "#fff",
     pink: '#e93382',
+    lightWhite: '#f7f7f7',
     greyNew: '#5c5c5c',
     darkGrey2: '#2D2D2D',
     newInputFieldBorder: '#DEDEDE',

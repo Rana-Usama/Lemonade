@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Image, ImageBackground, TouchableOpacity, Platform } from 'react-native'
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -53,6 +53,8 @@ function SignInScreen(props) {
             return true;
         }
 
+        props.navigation.navigate("ApplyNowScreen")
+
         try {
             // API INTEGRATION WILL COME HERE
         } catch (error) {
@@ -64,7 +66,7 @@ function SignInScreen(props) {
 
 
     return (
-        <Screen style={{ flex: 1, justifyContent: 'flex-start', alignItems: "center", backgroundColor: Colors.white }}>
+        <Screen style={styles.screen}>
 
             <LoadingModal show={indicator} />
 
@@ -120,9 +122,17 @@ function SignInScreen(props) {
                 />
             </View>
 
-
         </Screen>
     );
 }
+
+const styles = StyleSheet.create({
+    screen: {
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: "center",
+        backgroundColor: Colors.white
+    }
+})
 
 export default SignInScreen;

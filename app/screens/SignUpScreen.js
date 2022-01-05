@@ -74,12 +74,12 @@ function SignUpScreen(props) {
     };
 
     return (
-        <Screen style={{ flex: 1, justifyContent: 'flex-start', alignItems: "center", backgroundColor: Colors.white }}>
+        <Screen style={styles.screen}>
 
             <LoadingModal show={indicator} />
 
             {/* Nav */}
-            <View style={{ width: '90%', justifyContent: 'center', alignSelf: 'center', alignItems: 'center', flexDirection: 'row' }}>
+            <View style={styles.navContainer}>
                 <TouchableOpacity activeOpacity={0.6} style={{ position: 'absolute', left: 0 }} >
                     <Ionicons name="chevron-back" style={{ fontSize: RFPercentage(3) }} color="black" />
                 </TouchableOpacity>
@@ -88,7 +88,7 @@ function SignUpScreen(props) {
             </View>
 
             {/* Tag Line */}
-            <Text style={{ marginTop: RFPercentage(5), color: Colors.greyNew, fontSize: RFPercentage(2.5), fontWeight: '500' }} >
+            <Text style={styles.tagLine} >
                 Enter your details to sign up
             </Text>
 
@@ -146,7 +146,7 @@ function SignUpScreen(props) {
                 />
             </View>
 
-            <View style={{ position: 'absolute', bottom: RFPercentage(2), flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }} >
+            <View style={styles.alreadyMember} >
                 <Text style={{ fontSize: RFPercentage(1.9), color: Colors.greyNew, fontWeight: '500' }} >
                     Already a member?
                 </Text>
@@ -161,6 +161,26 @@ function SignUpScreen(props) {
 }
 
 const styles = StyleSheet.create({
+
+    screen: {
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: "center",
+        backgroundColor: Colors.white
+    },
+    navContainer: {
+        width: '90%',
+        justifyContent: 'center',
+        alignSelf: 'center',
+        alignItems: 'center',
+        flexDirection: 'row'
+    },
+    tagLine: {
+        marginTop: RFPercentage(5),
+        color: Colors.greyNew,
+        fontSize: RFPercentage(2.5),
+        fontWeight: '500'
+    },
     forgetRememberContainer: {
         marginTop: RFPercentage(2.4),
         width: '85%',
@@ -177,13 +197,20 @@ const styles = StyleSheet.create({
 
         borderWidth: RFPercentage(0.09),
         backgroundColor: Colors.white
-
     },
     rememberMe: {
         marginLeft: RFPercentage(1),
         fontSize: RFPercentage(1.8),
         color: Colors.inputFieldBorder
     },
+    alreadyMember: {
+        position: 'absolute',
+        bottom: RFPercentage(2),
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center'
+    }
 })
 
 export default SignUpScreen;
