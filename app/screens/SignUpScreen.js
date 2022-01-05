@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, Image, ImageBackground, TouchableOpacity, Platform } from 'react-native'
+import { View, Text, Image, TouchableOpacity, Platform, StyleSheet } from 'react-native'
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { Ionicons } from '@expo/vector-icons';
+import { Octicons } from '@expo/vector-icons';
 
 //components
 import Screen from './../components/Screen';
@@ -12,11 +13,21 @@ import MyAppButton from './../components/common/MyAppButton';
 //config
 import Colors from '../config/Colors';
 
-function SignInScreen(props) {
+function SignUpScreen(props) {
 
     const [indicator, showIndicator] = useState(false);
 
+    const [tick, setTick] = useState(false);
+
     const [inputField, SetInputField] = useState([
+        {
+            placeholder: "First Name",
+            value: "",
+        },
+        {
+            placeholder: "Last Name",
+            value: "",
+        },
         {
             placeholder: "Email",
             value: "",
@@ -40,14 +51,14 @@ function SignInScreen(props) {
         showIndicator(true);
         let tempfeilds = [...inputField];
 
-        if (tempfeilds[0].value === "" || tempfeilds[1].value === "") {
+        if (tempfeilds[0].value === "" || tempfeilds[1].value === "" || tempfeilds[2].value === "" || tempfeilds[3].value === "") {
             alert("Please fill all the feilds");
             showIndicator(false);
             return true;
         }
 
         var mail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-        if (!tempfeilds[0].value.match(mail)) {
+        if (!tempfeilds[2].value.match(mail)) {
             alert("Wrong Email Entered!");
             showIndicator(false);
             return true;
@@ -61,7 +72,6 @@ function SignInScreen(props) {
 
         showIndicator(false);
     };
-
 
     return (
         <Screen style={{ flex: 1, justifyContent: 'flex-start', alignItems: "center", backgroundColor: Colors.white }}>
@@ -77,14 +87,13 @@ function SignInScreen(props) {
                 <Image style={{ width: RFPercentage(11), height: RFPercentage(11) }} source={require('../../assets/images/logo.png')} />
             </View>
 
-            {/* Mail */}
+            {/* Tag Line */}
             <Text style={{ marginTop: RFPercentage(5), color: Colors.greyNew, fontSize: RFPercentage(2.5), fontWeight: '500' }} >
-                Enter your email to signin
+                Enter your details to sign up
             </Text>
 
             {/* Input fields */}
             <View style={{ marginTop: RFPercentage(7), justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-
                 {inputField.map((item, i) => (
                     <View key={i} style={{ marginTop: i === 0 ? RFPercentage(-2) : RFPercentage(2) }} >
                         <InputField
@@ -106,10 +115,27 @@ function SignInScreen(props) {
                 ))}
             </View>
 
+            <View style={styles.forgetRememberContainer}>
+                {/* Check Box */}
+                <TouchableOpacity onPress={() => setTick(true)} activeOpacity={0.5} style={[styles.checkBox, { borderColor: tick ? Colors.pink : Colors.grey, }]}>
+                    {tick ?
+                        <TouchableOpacity activeOpacity={0.8} onPress={() => setTick(false)} >
+                            <Octicons name="check" style={{ fontSize: RFPercentage(2) }} color={Colors.pink} />
+                        </TouchableOpacity>
+                        : null}
+                </TouchableOpacity>
+                <Text style={styles.rememberMe}>
+                    I agree to the
+                </Text>
+                <Text style={{ color: Colors.pink, fontSize: RFPercentage(1.9), marginLeft: RFPercentage(0.3), fontWeight: '500' }} >
+                    Terms of Service
+                </Text>
+            </View>
+
             {/* Button */}
-            <View style={{ width: "100%", alignItems: "center", marginTop: RFPercentage(4) }}>
+            <View style={{ width: "100%", alignItems: "center", marginTop: RFPercentage(8) }}>
                 <MyAppButton
-                    title="Sign In"
+                    title="Sign Up"
                     padding={RFPercentage(1.6)}
                     onPress={() => handleLogin()}
                     backgroundColor={Colors.pink}
@@ -120,9 +146,44 @@ function SignInScreen(props) {
                 />
             </View>
 
-
+            <View style={{ position: 'absolute', bottom: RFPercentage(2), flexDirection: 'row', justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }} >
+                <Text style={{ fontSize: RFPercentage(1.9), color: Colors.greyNew, fontWeight: '500' }} >
+                    Already a member?
+                </Text>
+                <TouchableOpacity activeOpacity={0.8} onPress={() => props.navigation.navigate('SignInScreen')} >
+                    <Text style={{ fontSize: RFPercentage(2), marginLeft: RFPercentage(0.3), color: Colors.pink, fontWeight: Platform.OS == 'android' ? 'bold' : '700' }} >
+                        Sign in
+                    </Text>
+                </TouchableOpacity>
+            </View>
         </Screen>
     );
 }
 
-export default SignInScreen;
+const styles = StyleSheet.create({
+    forgetRememberContainer: {
+        marginTop: RFPercentage(2.4),
+        width: '85%',
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center'
+    },
+    checkBox: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: RFPercentage(2.5),
+        height: RFPercentage(2.5),
+        borderRadius: RFPercentage(0.5),
+
+        borderWidth: RFPercentage(0.09),
+        backgroundColor: Colors.white
+
+    },
+    rememberMe: {
+        marginLeft: RFPercentage(1),
+        fontSize: RFPercentage(1.8),
+        color: Colors.inputFieldBorder
+    },
+})
+
+export default SignUpScreen;
